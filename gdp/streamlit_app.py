@@ -6,8 +6,9 @@ from pathlib import Path
 # Set the title and favicon that appear in the Browser's tab bar.
 st.set_page_config(
     page_title='GDP dashboard',
-    page_icon=':earth_americas:', # This is an emoji shortcode. Could be a URL too.
+    page_icon=':earth_americas:',  # This is an emoji shortcode. Could be a URL too.
 )
+
 
 # -----------------------------------------------------------------------------
 # Declare some useful functions.
@@ -22,7 +23,7 @@ def get_gdp_data():
     """
 
     # Instead of a CSV on disk, you could read from an HTTP endpoint here too.
-    DATA_FILENAME = Path(__file__).parent/'data/gdp_data.csv'
+    DATA_FILENAME = Path(__file__).parent / 'data/gdp_data.csv'
     raw_gdp_df = pd.read_csv(DATA_FILENAME)
 
     MIN_YEAR = 1960
@@ -56,6 +57,7 @@ def get_gdp_data():
     gdp_df['Year'] = pd.to_numeric(gdp_df['Year'])
 
     return gdp_df
+
 
 gdp_df = get_gdp_data()
 
@@ -103,7 +105,7 @@ filtered_gdp_df = gdp_df[
     (gdp_df['Country Code'].isin(selected_countries))
     & (gdp_df['Year'] <= to_year)
     & (from_year <= gdp_df['Year'])
-]
+    ]
 
 st.header('GDP over time', divider='gray')
 
@@ -118,7 +120,6 @@ st.line_chart(
 
 ''
 ''
-
 
 first_year = gdp_df[gdp_df['Year'] == from_year]
 last_year = gdp_df[gdp_df['Year'] == to_year]
